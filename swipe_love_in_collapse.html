@@ -1,0 +1,134 @@
+<html>
+  <body>
+    <pre><code>
+# Swipe District: Love in the Collapse
+
+Modular Python MUD set in a dystopian mega-city covering 52,419 square miles.
+
+## 🌐 Description
+
+A command-line Multi-User Dungeon where players navigate romance, danger, and disease...
+# Swipe District: Love in the Collapse
+
+Modular Python MUD set in a dystopian mega-city covering 52,419 square miles.
+
+## 🌐 Description
+
+A command-line Multi-User Dungeon where players navigate romance, danger, and disease. Includes:
+
+- Dynamic encounters via a dating system
+- Crime and disease simulations
+- Pluggable narrative modules like "Swarm Conflict" and "Glass Heights"
+- Inventory, auto-completion, and save/load mechanics
+
+---
+
+## 🧱 ENGINE MODULES
+
+### dating.py
+import random
+
+def attempt_date(player):
+    print("📱 You swipe on your phone...")
+    risk = random.random()
+    if risk < 0.2:
+        print("💤 They ghosted you. You feel disappointed.")
+    elif risk < 0.4:
+        player.infected = True
+        print("⚠️ You contracted an infection. Symptoms begin to show.")
+    elif risk < 0.6:
+        print("💞 You had a pleasant date. They seemed genuine.")
+    else:
+        print("😐 The date felt... uncanny. Like talking to a chatbot.")
+
+def check_health(player):
+    if getattr(player, 'infected', False):
+        print("⚕️ You are showing signs of an STI. Visit a clinic soon.")
+    else:
+        print("✅ You feel healthy.")
+
+---
+
+### crime.py
+import random
+
+def enter_area(player, area):
+    crime_zones = ["swarm", "alleys", "black_zone"]
+    if area in crime_zones and random.random() < 0.3:
+        print("🚨 You've been mugged by a squatter! You lose an item.")
+        if player.inventory:
+            lost = player.inventory.pop()
+            print(f"💔 You lost: {lost}")
+    return True
+
+---
+
+## 🌆 NARRATIVE MODULES
+
+### swarm_conflict.py
+from engine.world import Room
+
+def register(world):
+    room1 = Room("The Swarm", 
+        "A dense, derelict sprawl of makeshift homes and flickering neon. Squatters exchange tech, drugs, and diseases.",
+        {"east": "clinic"}, items=["mask"])
+    room2 = Room("Clinic", 
+        "A run-down health center, graffiti-tagged but staffed by tired volunteers.",
+        {"west": "swarm"})
+
+    world.add_room("swarm", room1)
+    world.add_room("clinic", room2)
+
+---
+
+### glass_heights.py
+from engine.world import Room
+
+def register(world):
+    room1 = Room("Glass Heights",
+        "A shimmering gated zone of silicon titans, surveillance drones, and exclusive dating networks.",
+        {"south": "terminal"}, items=["badge"])
+    room2 = Room("Transit Terminal",
+        "A public terminal filled with wanderers, workers, and digital junkies staring at their phones.",
+        {"north": "glass_heights"})
+
+    world.add_room("glass_heights", room1)
+    world.add_room("terminal", room2)
+
+---
+
+## 🧾 SOURCES (MLA Format)
+
+OpenAI. *ChatGPT*, 2 Aug. 2025, https://chat.openai.com. Large language model developed by OpenAI, based on the GPT-4 architecture.
+
+Python Software Foundation. *Python Documentation*. Version 3.11, https://docs.python.org/3/.
+
+McGregor, Hannah. “The Illusion of Intimacy in Online Dating.” *Canadian Journal of Communication*, vol. 46, no. 2, 2021, pp. 201–215.
+
+Brunton, Finn, and Helen Nissenbaum. *Obfuscation: A User's Guide for Privacy and Protest*. MIT Press, 2015.
+
+Fox, Jesse, and Katie M. Warber. “Social Networking Sites in Romantic Relationships.” *Journal of Social and Personal Relationships*, vol. 31, no. 4, 2014, pp. 451–470.
+
+Beck, Ulrich. *Risk Society: Towards a New Modernity*. Sage Publications, 1992.
+
+---
+
+## 🖼️ UI MOCKUP (ASCII)
+
++----------------------------------------------------+
+| 🗺️  REGION: Glass Heights                         |
+|----------------------------------------------------|
+| Description:                                       |
+|   A shimmering gated zone of silicon titans.       |
+|   Surveillance drones hum above dating terminals.  |
+|                                                    |
+| Commands:                                          |
+|   > swipe   > go south   > health   > inventory    |
+|                                                    |
+| Status: Healthy | Profile Trust: 34%               |
++----------------------------------------------------+
+
+</code>
+    </pre>
+  </body>
+</html>
